@@ -1,0 +1,19 @@
+{
+	"entry": "./folders/",
+	"outDir": "./out/",
+	"moveTopLevelFiles": true,
+	"directories": {
+		"source": "src/",
+		"docs": "docs/",
+		"build": "dist/",
+		"assets": "assets/"
+	},
+	"options": {
+		"docsMerge": {
+			"strategy": "ROOT_FOLDER",
+			"folder": "./out/docs/"
+		}
+	},
+	"watch": "./folders/",
+	"ignore": [".*node_modules.*", "\\.gitignore"]
+}

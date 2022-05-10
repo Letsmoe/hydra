@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"lib": ["es2020", "DOM"],
+		"outDir": "../lib/",
+		"declaration": true,
+		"declarationDir": "../dist/",
+		"moduleResolution": "node",
+		"downlevelIteration": true,
+		"target": "es6",
+		"module": "es2020"
+	},
+	"compileOnSave": true
+}
