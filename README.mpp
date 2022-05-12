@@ -1,0 +1,18 @@
+# Hydra
+
+{%
+center("<img src=\"./assets/hydra-logo.svg\" alt=\"Logo\">");
+center("A package for managing monorepos written in any language.");
+center("<a href=\"https://continuum-ai.de/docs/gyro\">Explore the docs »</a>");
+%}
+
+{%
+table = toc("Table of Contents");
+%}
+{{table}}
+
+## About
+
+## Installation
+
+### npm
