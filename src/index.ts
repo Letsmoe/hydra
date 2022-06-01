@@ -26,6 +26,11 @@ const RECURSIVE_OPTION = {
 	type: "boolean"
 }
 
+/**
+ * A function to loop through all the directories inside a folder and calls a callback on each of them containing their names/paths as argument.
+ * @param dir A given directory containing subdirectories to which a callback function shall be applied.
+ * @param callback The callback that gets called on every found directory.
+ */
 function applyToDirs(dir: string, callback: (path: string, name: string) => void = () => {}) {
 	fs.readdirSync(dir).forEach(subDir => {
 		let dirPath = path.resolve(dir, subDir);
@@ -121,7 +126,7 @@ const args = colarg(process.argv.slice(2))
 
 				process.exit()
 			})
-			.command("exec", "Executes the following command, maybe recursive.", (parser) => {
+			.command("exec", "Executes the following command, may be applied to all subdirectories.", (parser) => {
 				console.clear()
 				const args = parser.option(RECURSIVE_OPTION).option(PROJECT_OPTION).help().args;
 				const command = args._defaults[0]
@@ -176,11 +181,21 @@ function controlCheck(dir: string, checkBack: ((str : string) => boolean) = () =
 	return count;
 }
 
+/**
+ * A function that clears the console logging an info message of which folder is being watched right now.
+ * @param watch The folder that is being watched for changes.
+ */
 function clear(watch: string) {
 	console.clear()
 	info(`Watching '${watch}' for changes.`);
 }
 
+/**
+ * A function that recursively copies all files from a given input directory to a target directory checking through each file against an optional filter parameter.
+ * @param inDir The directory to copy the files from.
+ * @param outDir The directory to copy the files to.
+ * @param checkBack An optional function that checks whether a file shall be copied or not.
+ */
 function recurseCopy(inDir: string, outDir: string, checkBack: (str : string) => boolean = () => true) {
 	let files = fs.readdirSync(inDir);
 	files.forEach(file => {
