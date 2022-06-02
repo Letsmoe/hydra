@@ -1,0 +1,100 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "https://continuum-ai.de/hydra/hydra.schema.json",
+	"title": "Hydra",
+	"description": "Hydra is a package for managing monorepos written in any language.",
+	"type": "object",
+	"required": ["directories", "entry", "outDir"],
+	"properties": {
+		"directories": {
+			"type": "object",
+			"properties": {
+				"source": {
+					"type": "string",
+					"description": "The source directory of the project."
+				},
+				"build": {
+					"type": "string",
+					"description": "The build directory of the project."
+				},
+				"test": {
+					"type": "string",
+					"description": "The test directory of the project."
+				},
+				"docs": {
+					"type": "string",
+					"description": "The docs directory of the project."
+				},
+				"assets": {
+					"type": "string",
+					"description": "A folder containing assets for the project."
+				}
+			},
+			"required": ["source", "build"]
+		},
+		"entry": {
+			"type": "string",
+			"description": "The entry point of the project.",
+			"default": "./"
+		},
+		"outDir": {
+			"type": "string",
+			"description": "The output directory of the project.",
+			"default": "../out/"
+		},
+		"moveTopLevelFiles": {
+			"type": "boolean",
+			"description": "If true, the top level files will be moved to the build directory.",
+			"default": false
+		},
+		"moveSourceFiles": {
+			"type": "array",
+			"description": "An array containing regular expressions to match against source files that shall be moved to the out directory.",
+			"default": [".*\\.html", "^.*\\.css$", ".*\\.js", ".*\\.php"]
+		},
+		"options": {
+			"type": "object",
+			"properties": {
+				"docsMerge": {
+					"type": "object",
+					"properties": {
+						"strategy": {
+							"type": "string",
+							"description": "The strategy of how to merge the docs directory.",
+							"default": "ROOT_FOLDER",
+							"anyOf": [{
+								"type": "string",
+								"const": "ROOT_FOLDER"
+							},
+							{
+								"type": "string",
+								"const": "SUBDIRECTORY"
+							}]
+						},
+						"folder": {
+							"type": "string",
+							"description": "The folder to move the docs to."
+						}
+					},
+					"required": ["folder"]
+				}
+			},
+			"default": {}
+		},
+		"autoClear": {
+			"type": "boolean",
+			"description": "If true, the build directory will be cleared before the build process starts.",
+			"default": false
+		},
+		"watch": {
+			"type": "boolean",
+			"description": "If true, the build process will be executed in watch mode.",
+			"default": false
+		},
+		"ignore": {
+			"type": "array",
+			"description": "An array containing regular expressions to match against files that shall be ignored.",
+			"default": [".*node_modules.*", "\\.gitignore"]
+		}
+	}
+}
