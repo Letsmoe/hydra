@@ -7,7 +7,8 @@
 		"moduleResolution": "node",
 		"downlevelIteration": true,
 		"target": "es6",
-		"module": "es2020"
+		"module": "es2020",
+		"allowSyntheticDefaultImports": true
 	},
 	"compileOnSave": true
 }

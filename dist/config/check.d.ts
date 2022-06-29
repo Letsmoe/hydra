@@ -1,21 +1,16 @@
+interface Directory {
+    match: string;
+    outName: string;
+    strategy?: "default" | "root";
+}
 interface Config {
-    directories: {
-        source?: string;
-        build?: string;
-        docs?: string;
-        assets?: string;
-    };
+    dirs: Directory[];
     entry: string;
-    outDir: string;
-    moveTopLevelFiles?: boolean;
-    moveSourceFiles?: string[];
+    out: string;
     options?: {
-        docsMerge: {
-            strategy: "ROOT_FOLDER" | "SUBDIRECTORY";
-            folder: string;
-        };
+        clear?: boolean;
+        moveTopLevelFiles?: boolean;
     };
-    autoClear: boolean;
     watch?: string | boolean;
     ignore?: string[];
 }

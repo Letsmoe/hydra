@@ -4,92 +4,60 @@
 	"title": "Hydra",
 	"description": "Hydra is a package for managing monorepos written in any language.",
 	"type": "object",
-	"required": ["directories", "entry", "outDir"],
+	"required": ["dirs", "entry", "out"],
 	"properties": {
-		"directories": {
-			"type": "object",
-			"properties": {
-				"source": {
-					"type": "string",
-					"description": "The source directory of the project."
+		"dirs": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"match": {
+						"type": "string",
+						"description": "A RegExp string to match a potential folder candidate to - if it matches, the rule will be followed."
+					},
+					"outName": {
+						"type": "string",
+						"description": "The name of the folder to output to once a folder is moved."
+					},
+					"strategy": {
+						"type": "string",
+						"enum": ["default", "root"],
+						"default": "default",
+						"description": "The strategy to follow when moving, default will output the folder inside the package directory whilst root will revert the order of path parts."
+					}
 				},
-				"build": {
-					"type": "string",
-					"description": "The build directory of the project."
-				},
-				"test": {
-					"type": "string",
-					"description": "The test directory of the project."
-				},
-				"docs": {
-					"type": "string",
-					"description": "The docs directory of the project."
-				},
-				"assets": {
-					"type": "string",
-					"description": "A folder containing assets for the project."
-				}
-			},
-			"required": ["source", "build"]
+				"required": ["match", "outName"]
+			}
 		},
 		"entry": {
 			"type": "string",
 			"description": "The entry point of the project.",
 			"default": "./"
 		},
-		"outDir": {
+		"out": {
 			"type": "string",
 			"description": "The output directory of the project.",
 			"default": "../out/"
 		},
-		"moveTopLevelFiles": {
-			"type": "boolean",
-			"description": "If true, the top level files will be moved to the build directory.",
-			"default": false
-		},
-		"moveSourceFiles": {
-			"type": "array",
-			"description": "An array containing regular expressions to match against source files that shall be moved to the out directory.",
-			"default": [".*\\.html", "^.*\\.css$", ".*\\.js", ".*\\.php"]
-		},
 		"options": {
 			"type": "object",
 			"properties": {
-				"docsMerge": {
-					"type": "object",
-					"properties": {
-						"strategy": {
-							"type": "string",
-							"description": "The strategy of how to merge the docs directory.",
-							"default": "ROOT_FOLDER",
-							"anyOf": [{
-								"type": "string",
-								"const": "ROOT_FOLDER"
-							},
-							{
-								"type": "string",
-								"const": "SUBDIRECTORY"
-							}]
-						},
-						"folder": {
-							"type": "string",
-							"description": "The folder to move the docs to."
-						}
-					},
-					"required": ["folder"]
+				"moveTopLevelFiles": {
+					"type": "boolean",
+					"description": "If true, the top level files will be moved to the build directory.",
+					"default": false
+				},
+				"clear": {
+					"type": "boolean",
+					"description": "If true, the build directory will be cleared before the build process starts.",
+					"default": false
 				}
-			},
-			"default": {}
-		},
-		"autoClear": {
-			"type": "boolean",
-			"description": "If true, the build directory will be cleared before the build process starts.",
-			"default": false
+			}
 		},
 		"watch": {
-			"type": "boolean",
-			"description": "If true, the build process will be executed in watch mode.",
-			"default": false
+			"type": "string",
+			"description": "The folder to watch, can be left blank if not path shall be watched.",
+			"default": ""
 		},
 		"ignore": {
 			"type": "array",

@@ -1,43 +1,29 @@
+interface Directory {
+	match: string;
+	outName: string;
+	strategy?: "default" | "root";
+}
+
 interface Config {
-	directories: {
-		source?: string;
-		build?: string;
-		docs?: string;
-		assets?: string;
-	};
+	dirs: Directory[]
 	entry: string;
-	outDir: string;
-	moveTopLevelFiles?: boolean;
-	moveSourceFiles?: string[];
+	out: string;
 	options?: {
-		docsMerge: {
-			strategy: "ROOT_FOLDER" | "SUBDIRECTORY",
-			folder: string
-		};
+		clear?: boolean;
+		moveTopLevelFiles?: boolean;
 	},
-	autoClear: boolean;
 	watch?: string | boolean;
-	ignore?: string[]
+	ignore?: string[],
 }
 
 const DEFAULT_CONFIG: Config = {
-	directories: {
-		source: "src",
-		build: "build",
-		docs: "docs",
-		assets: "assets"
-	},
-	entry: "./folders",
-	outDir: "./out",
-	moveTopLevelFiles: true,
-	moveSourceFiles: [".*\\.html", "^.*\\.css$", ".*\\.js", ".*\\.php"],
+	dirs: [],
+	entry: null,
+	out: null,
 	options: {
-		docsMerge: {
-			strategy: "ROOT_FOLDER",
-			folder: "docs"
-		}
+		clear: false,
+		moveTopLevelFiles: true
 	},
-	autoClear: true,
 	watch: false,
 	ignore: [".*node_modules.*", "\\.gitignore"]
 };
@@ -54,18 +40,6 @@ function checkStructure(config: Config) {
 	config = deepMerge(DEFAULT_CONFIG, config);
 
 	if (!(typeof config === "object")) {
-		return false;
-	}
-	if (
-		typeof config.directories !== "object" ||
-		Array.isArray(config.directories)
-	) {
-		return false;
-	}
-	if (
-		typeof config.directories.source !== "string" ||
-		typeof config.directories.build !== "string"
-	) {
 		return false;
 	}
 	if (typeof config.entry !== "string") {

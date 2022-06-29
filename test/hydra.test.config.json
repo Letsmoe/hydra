@@ -1,0 +1,22 @@
+{
+	"entry": "./folders/",
+	"out": "./out/",
+	"dirs": [
+		{
+			"match": ".*docs.*",
+			"outName": "docs",
+			"strategy": "root"
+		},
+		{
+			"match": ".*dist.*",
+			"outName": "",
+			"strategy": "default"
+		}
+	],
+	"options": {
+		"clear": false,
+		"moveTopLevelFiles": true
+	},
+	"watch": "./folders/",
+	"ignore": [".*node_modules.*", "\\.gitignore"]
+}
